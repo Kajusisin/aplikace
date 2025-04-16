@@ -1,0 +1,364 @@
+{% extends 'base.html' %}
+
+{% block title %}Hejbni kostrou! - Fitness Aplikace pro Základní Školu{% endblock %}
+
+{% block body_id %}home-page{% endblock %}
+
+{% block content %}
+<h1>Vítejte v aplikaci „Hejbni kostrou!" 🦴🏃‍♂️🤸‍♂️</h1>
+
+<div class="menu-container">
+    <div class="skolni-rok-container">
+        <span>Školní rok:</span>
+        <select id="skolniRok" name="skolniRok" class="form-control">
+            {% for rok in skolni_roky %}
+            <option value="{{ rok.id }}" {% if rok.rok_od==session.vybrany_skolni_rok_od %}selected{% endif %}
+                data-rok-od="{{ rok.rok_od }}" data-rok-do="{{ rok.rok_do }}">
+                {{ rok.rok_od }}/{{ rok.rok_do }}
+            </option>
+            {% endfor %}
+        </select>
+        <button id="updateSkolniRokBtn" class="btn btn-primary">Aktualizovat rok</button>
+    </div>
+</div>
+
+<div>
+    <a href="/zaci" class="button">Seznam žáků</a>
+    <form action="/vyhledat" method="GET" class="search-container" id="searchForm">
+        <input type="text" id="searchInput" name="query" placeholder="🔍 Vyhledat žáka..." class="search-input"
+            autocomplete="off">
+    </form>
+    <a href="/tridy" class="button">Třídy</a>
+    <a href="/zebricky_a_statistiky" class="button">Žebříčky a statistiky</a>
+    <a href="/discipliny" class="button">Disciplíny</a>
+    <a href="/odkazy_a_informace" class="button">Odkazy a informace</a>
+
+    <!-- Přidání tlačítka pro import nových žáků -->
+    <a href="#" id="importNovychZakuBtn" class="button">Import nových žáků</a>
+
+    <!-- Nové tlačítko pro správu školního roku -->
+    <a href="#" id="spravaSkolnihoRokuBtn" class="button admin-button">Správa školního roku</a>
+</div>
+
+<div class="headline-container">
+    <h2>Pohyb je základ zdravého životního stylu, a proto jsme tu! Aplikace je vytvořena pro účely tělesné výchovy na ZŠ
+        Svatopluka Čecha Choceň a je přizpůsobena potřebám učitelů i žáků, aby podpořila dlouhodobý rozvoj pohybových
+        dovedností.</h2>
+</div>
+
+<!-- ✅ Správné rozložení obsahu -->
+<div class="content-container">
+    <!-- Levá část s logem -->
+    <div class="left-side">
+        <div class="logo-hlavni-container">
+            <a href="{{ url_for('home') }}">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo aplikace" class="logo-hlavni">
+            </a>
+        </div>
+    </div>
+
+    <!-- Pravá část s textem -->
+    <div class="right-side">
+        <div class="info-container">
+            <h3>👦👧 Pro žáky:</h3>
+            <p>Chcete se posouvat vpřed a vidět výsledky? Jste tu správně! Navíc můžete získávat body za vaši snahu!
+                Nezáleží na startovní pozici, důležitý je pokrok!</p>
+
+            <h3>🧑‍🏫 Pro učitele:</h3>
+            <p>Systém vám usnadní evidenci výkonů žáků a jejich monitoring. Žádné papíry<br>a složité přepočty – zde vše
+                najdete přehledně na jednom místě.</p>
+
+            <h3>⬅️ Co zde najdete?</h3>
+            <ul>
+                <li><b>Seznam žáků</b> – Rychlý přístup k výsledkům jednotlivých žáků.</li>
+                <li><b>Třídy</b> – Přehled výkonů celé třídy.</li>
+                <li><b>Žebříčky a statistiky</b> – Statistiky a srovnání nejlepších výkonů.</li>
+                <li><b>Disciplíny</b> – Seznam, zápis a výsledky všech disciplín.</li>
+                <li><b>Odkazy a informace</b> – Užitečné materiály a další informace.</li>
+            </ul>
+
+            <h3>➡️ Jak pokračovat?</h3>
+            <p>Vyberte si z nabídky a začněte sledovat svůj pokrok! 💪</p>
+        </div>
+    </div>
+</div>
+
+<!-- Přidat modální okno pro import žáků před konec obsahu -->
+<div id="importModal" class="modal">
+    <div class="modal-content import-modal-content">
+        <span class="close">&times;</span>
+        <h2>Import nových žáků 6. ročníku</h2>
+        <p>Nahrajte Excel soubor se seznamem nových žáků. Formát musí být stejný jako pro stávající žáky.</p>
+
+        <form id="importForm" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="excelFile">Vyberte Excel soubor:</label>
+                <input type="file" id="excelFile" name="excelFile" accept=".xlsx, .xls" required>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="submit-btn">Importovat žáky</button>
+            </div>
+        </form>
+
+        <div id="importStatus"></div>
+    </div>
+</div>
+
+<!-- Nové modální okno pro správu školního roku -->
+<div id="skolniRokModal" class="modal">
+    <div class="modal-content admin-modal-content">
+        <span class="close">&times;</span>
+        <h2>Správa školního roku</h2>
+
+        <div class="admin-section">
+            <h3>Posun žáků do nového školního roku</h3>
+            <div class="alert alert-warning">
+                <strong>Pozor!</strong> Tato operace posune všechny žáky o jeden ročník výše.
+                Žáci z 9. tříd budou označeni jako absolventi.
+                Tato akce nelze vrátit zpět!
+            </div>
+
+            <form method="POST" action="{{ url_for('admin_posunout_rocnik') }}" id="posunRocnikForm">
+                <div class="form-group">
+                    <label for="z_roku_id">Z roku:</label>
+                    <select class="form-control" id="z_roku_id" name="z_roku_id" required>
+                        <option value="">Vyberte školní rok</option>
+                        {% for rok in skolni_roky %}
+                        <option value="{{ rok.id }}" {% if rok.rok_od==session.vybrany_skolni_rok_od %}selected{% endif
+                            %}>
+                            {{ rok.rok_od }}/{{ rok.rok_do }} {% if rok.aktualni %}(aktuální){% endif %}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="do_roku_id">Do roku:</label>
+                    <select class="form-control" id="do_roku_id" name="do_roku_id" required>
+                        <option value="">Vyberte školní rok</option>
+                        {% for rok in skolni_roky %}
+                        <option value="{{ rok.id }}">
+                            {{ rok.rok_od }}/{{ rok.rok_do }} {% if rok.aktualni %}(aktuální){% endif %}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-danger" id="posunRocnikBtn">
+                        Posunout žáky
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Najdeme vyhledávací pole
+        let searchInput = document.getElementById("searchInput");
+
+        // Pouze na home stránce resetujeme vyhledávací pole
+        if (searchInput && document.body.id === "home-page") {
+            searchInput.value = ""; // Reset vyhledávání jen pro home.html
+        }
+    });
+
+    window.addEventListener("pageshow", function (event) {
+        let searchInput = document.getElementById("searchInput");
+
+        // Pouze pokud jsme na home.html a prohlížeč načetl stránku z cache
+        if (searchInput && document.body.id === "home-page" && (event.persisted || window.performance.getEntriesByType("navigation")[0].type === "back_forward")) {
+            searchInput.value = "";
+        }
+    });
+
+    // Nutíme prohlížeč neukládat stránku do cache pouze na home.html
+    if (document.body.id === "home-page" && "onpageshow" in window) {
+        window.onpageshow = function (event) {
+            if (event.persisted) {
+                location.reload(); // Vynutí opětovné načtení stránky
+            }
+        };
+    }
+
+    // V DOMContentLoaded event listeneru
+    const updateSkolniRokBtn = document.getElementById("updateSkolniRokBtn");
+    const skolniRokSelect = document.getElementById("skolniRok");
+
+    if (updateSkolniRokBtn && skolniRokSelect) {
+        updateSkolniRokBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            const rokId = skolniRokSelect.value;
+            const selectedOption = skolniRokSelect.options[skolniRokSelect.selectedIndex];
+            const rokOd = selectedOption.getAttribute("data-rok-od");
+            const rokDo = selectedOption.getAttribute("data-rok-do");
+
+            // Potvrzovací dialog
+            if (!confirm(`Opravdu chcete změnit aktivní školní rok na ${rokOd}/${rokDo}?`)) {
+                return;
+            }
+
+            // Volání API pro změnu roku
+            fetch("/nastav_aktivni_rok", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ rok_id: rokId })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("✅ Školní rok byl úspěšně změněn na " + rokOd + "/" + rokDo);
+                        // Aktualizovat stránku
+                        location.reload();
+                    } else {
+                        alert("❌ Chyba při změně školního roku: " + (data.error || "Neznámá chyba"));
+                    }
+                })
+                .catch(error => {
+                    console.error("❌ Chyba při komunikaci s API:", error);
+                    alert("❌ Chyba při změně školního roku: " + error);
+                });
+        });
+    }
+
+    // Reference na modal a jeho prvky
+    const modal = document.getElementById("importModal");
+    const importBtn = document.getElementById("importNovychZakuBtn");
+    const closeBtn = document.querySelector(".close");
+    const importForm = document.getElementById("importForm");
+    const importStatus = document.getElementById("importStatus");
+
+    // Otevření modalu
+    importBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        modal.style.display = "block";
+    });
+
+    // Zavření modalu
+    closeBtn.addEventListener("click", function () {
+        modal.style.display = "none";
+        importStatus.style.display = "none";
+        importForm.reset();
+    });
+
+    // Zavření modalu kliknutím mimo jeho obsah
+    window.addEventListener("click", function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+            importStatus.style.display = "none";
+            importForm.reset();
+        }
+    });
+
+    // Zpracování formuláře pro import žáků
+    importForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const fileInput = document.getElementById("excelFile");
+        if (!fileInput.files[0]) {
+            showImportStatus("Vyberte soubor pro import.", "error");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("excelFile", fileInput.files[0]);
+
+        // Zpracování nahrávání a importu
+        importStatus.innerHTML = "Import probíhá, čekejte prosím...";
+        importStatus.className = "";
+        importStatus.style.display = "block";
+
+        fetch("/import_novi_zaci_6_rocniku", {
+            method: "POST",
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showImportStatus(data.message || "Import byl úspěšně dokončen!", "success");
+                } else {
+                    showImportStatus(data.error || "Při importu došlo k chybě.", "error");
+                }
+            })
+            .catch(error => {
+                console.error("Chyba při importu:", error);
+                showImportStatus("Při importu došlo k technické chybě.", "error");
+            });
+    });
+
+    // Zobrazení statusu importu
+    function showImportStatus(message, type) {
+        importStatus.innerHTML = message;
+        importStatus.className = type;
+        importStatus.style.display = "block";
+
+        if (type === "success") {
+            // Po úspěšném importu resetujeme formulář
+            setTimeout(() => {
+                importForm.reset();
+            }, 2000);
+        }
+    }
+
+    // Kód pro modální okno správy školního roku
+    const skolniRokModal = document.getElementById("skolniRokModal");
+    const spravaSkolnihoRokuBtn = document.getElementById("spravaSkolnihoRokuBtn");
+    const closeButtons = document.querySelectorAll(".close");
+    const posunRocnikForm = document.getElementById("posunRocnikForm");
+    const posunRocnikBtn = document.getElementById("posunRocnikBtn");
+
+    // Otevření modalu pro správu školního roku
+    if (spravaSkolnihoRokuBtn) {
+        spravaSkolnihoRokuBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            skolniRokModal.style.display = "block";
+        });
+    }
+
+    // Zavření všech modálů při kliknutí na tlačítko zavřít
+    closeButtons.forEach(button => {
+        button.addEventListener("click", function () {
+            document.querySelectorAll(".modal").forEach(modal => {
+                modal.style.display = "none";
+            });
+        });
+    });
+
+    // Zavření modalu kliknutím mimo jeho obsah
+    window.addEventListener("click", function (event) {
+        if (event.target.classList.contains("modal")) {
+            event.target.style.display = "none";
+        }
+    });
+
+    // Automatický výběr navazujícího roku pro posun ročníků
+    const zRokuSelect = document.getElementById("z_roku_id");
+    const doRokuSelect = document.getElementById("do_roku_id");
+
+    if (zRokuSelect && doRokuSelect) {
+        zRokuSelect.addEventListener("change", function () {
+            // Nastavení následujícího roku jako cílového
+            const selectedIndex = this.selectedIndex;
+            if (selectedIndex > 0 && selectedIndex < doRokuSelect.options.length) {
+                doRokuSelect.selectedIndex = selectedIndex + 1;
+            }
+        });
+    }
+
+    // Potvrzovací dialog pro posun ročníků
+    if (posunRocnikBtn) {
+        posunRocnikForm.addEventListener("submit", function (e) {
+            const confirmMessage = "POZOR! Tato akce posune všechny žáky o jeden ročník výše a žáci 9. tříd budou označeni jako absolventi. Tuto akci nelze vrátit zpět.\n\nOpravdu chcete pokračovat?";
+
+            if (!confirm(confirmMessage)) {
+                e.preventDefault();
+            }
+        });
+    }
+    });
+</script>
+{% endblock %}

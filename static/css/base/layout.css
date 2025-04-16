@@ -1,0 +1,81 @@
+/* 🔹 HLAVNÍ KONTEJNER */
+.container {
+  max-width: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+/* 🔹 ŠKOLNÍ ROK V PRAVÉM ROHU */
+.skolni-rok {
+  position: absolute;
+  top: 0.5vw;
+  right: 3vw;
+  font-size: clamp(0.8rem, 1vw, 1.1rem);
+  font-weight: normal;
+}
+
+/* 🔹 LOGO DOMŮ */
+.logo-home {
+  position: absolute;
+  top: 3vw;
+  right: 3vw;
+  z-index: 1000;
+  pointer-events: auto;
+}
+
+.logo-home img {
+  width: clamp(30px, 3vw, 50px);
+  height: auto;
+  cursor: pointer;
+}
+
+/* 🔹 Obal pro obsah s paddingem pro mobilní zařízení */
+.page-wrapper {
+  width: 100%;
+  padding: 0 1vw;
+}
+
+/* Pomocné layout třídy */
+.d-flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mt-1 { margin-top: 0.5vw; }
+.mt-2 { margin-top: 1vw; }
+.mt-3 { margin-top: 2vw; }
+.mt-4 { margin-top: 3vw; }
+.mt-5 { margin-top: 4vw; }
+
+.mb-1 { margin-bottom: 0.5vw; }
+.mb-2 { margin-bottom: 1vw; }
+.mb-3 { margin-bottom: 2vw; }
+.mb-4 { margin-bottom: 3vw; }
+.mb-5 { margin-bottom: 4vw; }

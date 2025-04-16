@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}Třídy – Hejbni kostrou{% endblock %}
+{% block body_id %}tridy-page{% endblock %}
+
+{% block content %}
+<h1>Přehled tříd</h1>
+
+<div class="tridy-info">
+    <p>Školní rok: <strong>{{ vybrany_rok }}/{{ vybrany_rok + 1 }}</strong></p>
+</div>
+
+<!-- ✅ Upravený kontejner podle vzoru detail_tridy.html -->
+<div class="seznam-container">
+    <!-- ✅ Levá část - Aktivní třídy -->
+    <div class="sloupec">
+        <h2>Aktivní třídy</h2>
+        {% if tridni_seznam %}
+        <div class="tridy-grid">
+            {% for trida in tridni_seznam %}
+            <a href="{{ url_for('detail_tridy', cislo=trida[0][0], pismeno=trida[0][1], rok=vybrany_rok) }}"
+                class="trida-box">
+                {% if trida[0][1] and trida[0][1].startswith('.') %}
+                {{ trida[0][0] }}{{ trida[0][1] }} <span class="pocet-zaku">({{ trida[1] }} žáků)</span>
+                {% else %}
+                {{ trida[0][0] }}.{{ trida[0][1] }} <span class="pocet-zaku">({{ trida[1] }} žáků)</span>
+                {% endif %}
+            </a>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="no-data">V tomto školním roce nejsou žádné aktivní třídy.</p>
+        {% endif %}
+
+        <!-- ✅ Logo pro aktivní třídy - zachováno z původní verze -->
+        <img src="{{ url_for('static', filename='logo_classes.jpg') }}" alt="Logo Classes" class="logo-classes">
+    </div>
+
+    <!-- ✅ Oddělovací čára mezi sloupci -->
+    <div class="oddeleni"></div>
+
+    <!-- ✅ Pravá část - Absolventi -->
+    <div class="sloupec">
+        <h2>Archiv - Absolventi</h2>
+        {% if absolventi_tridy %}
+        <div class="tridy-grid">
+            {% for trida in absolventi_tridy %}
+            <a href="{{ url_for('detail_tridy', cislo=trida[0][0], pismeno=trida[0][1], rok=vybrany_rok, absolvent_rok=trida[0][2]) }}"
+                class="trida-box trida-absolvent">
+                {% if trida[0][1] and trida[0][1].startswith('.') %}
+                {{ trida[0][0] }}{{ trida[0][1] }} <span class="absolvent-label">(absolventi {{ trida[0][2] }})</span>
+                <span class="pocet-zaku">({{ trida[1] }} žáků)</span>
+                {% else %}
+                {{ trida[0][0] }}.{{ trida[0][1] }} <span class="absolvent-label">(absolventi {{ trida[0][2] }})</span>
+                <span class="pocet-zaku">({{ trida[1] }} žáků)</span>
+                {% endif %}
+            </a>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="no-data">Žádné absolventské třídy nenalezeny.</p>
+        {% endif %}
+
+        <!-- ✅ Logo pro absolventy - zachováno z původní verze -->
+        <img src="{{ url_for('static', filename='logo_absolventi.jpg') }}" alt="Logo Absolventi"
+            class="logo-absolventi">
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"*.html": "jinja-html"
+		},
+		"emmet.includeLanguages": {
+			"jinja-html": "html"
+		}
+	}
+}

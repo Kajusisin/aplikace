@@ -1,0 +1,76 @@
+/* 🟢 Kontejner pro seznam žáků */
+.seznam-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 1vw;
+  gap: 25vw;
+  margin-left: 9vw;
+  position: relative;
+}
+
+/* 🟢 Oddělovací čára mezi sloupci */
+.oddeleni {
+  position: absolute;
+  left: 57%;
+  top: 0;
+  bottom: 0;
+  width: 0.125vw; /* 2px převedené na vw */
+  background-color: black;
+  transform: translateX(-5vw); /* -80px převedené na vw */
+}
+
+/* 🟢 Sloupce pro chlapce a dívky */
+.sloupec {
+  width: 18.75vw; /* 300px převedené na vw */
+  text-align: left;
+  background: transparent;
+  border-radius: var(--border-radius-sm);
+  box-shadow: none;
+}
+
+/* 🟢 Nadpisy sekcí */
+.sloupec h2 {
+  font-size: 2vw;
+  margin-bottom: 0.6vw; /* 10px převedené na vw */
+  margin-left: -9.4vw; /* -150px převedené na vw */
+  text-shadow: var(--heading-shadow);
+}
+
+/* 🟢 Seznam jmen */
+.sloupec ul {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+  margin-left: -9.4vw; /* -150px převedené na vw */
+}
+
+/* 🟢 Odkazy na detaily žáků */
+.sloupec li a {
+  text-decoration: none;
+  font-size: clamp(1.1rem, 1.25vw, 1.4rem); /* 20px převedené na vw */
+  color: black;
+  transition: color 0.3s;
+}
+
+.sloupec li a:hover {
+  color: navy;
+  text-decoration: underline;
+}
+
+/* 🟢 Přidání horní mezery pro seznam žáků */
+.seznam-zaku-wrapper {
+  margin-top: 3.75vw; /* 60px převedené na vw */
+}
+
+/* 🟢 Styl pro loga */
+.logo-chlapec,
+.logo-divka {
+  width: 15vw;
+  height: auto;
+  display: block;
+  margin-left: 18vw;
+  margin-top: 0.6vw; /* 10px převedené na vw */
+  border-radius: var(--border-radius);
+  position: absolute;
+}

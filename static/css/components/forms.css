@@ -1,0 +1,170 @@
+/* Styly pro vyhledávací pole */
+.search-input {
+  font-size: clamp(1.2rem, 1.4vw, 1.6rem);
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  font-weight: bold;
+  font-style: italic;
+  background-color: var(--accent-color);
+  color: black;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  outline: none;
+  text-align: center;
+  box-shadow: none;
+  cursor: pointer;
+  border-radius: var(--border-radius);
+  box-shadow: var(--button-shadow);
+  transition: var(--transition);
+  text-shadow: 0.125vw 0.125vw 0.25vw rgba(0, 0, 0, 0.4);
+}
+
+/* Placeholder text v poli */
+.search-input::placeholder {
+  color: black;
+  font-style: italic;
+}
+
+.search-input:hover {
+  background-color: rgb(39, 108, 139);
+  color: rgb(239, 237, 245);
+}
+
+/* Vstupní pole v tabulkách výkonů */
+.discipline-table input,
+.bonus-table input,
+.penalty-table input {
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  width: 95%;
+  line-height: 1.2vw;
+  padding: 0.2vw;
+  text-align: center;
+  font-size: 1.25vw;
+  font-weight: bold;
+  color: #032241;
+  border: 0.03vw solid black;
+  border-radius: 0.6vw;
+  background: linear-gradient(to bottom, #f0c653, #f0d769);
+  box-shadow: inset 0.12vw 0.12vw 0.3vw rgba(0, 0, 0, 0.2);
+  transition: var(--transition);
+}
+
+.discipline-table input:hover,
+.bonus-table input:hover,
+.penalty-table input:hover {
+  background: linear-gradient(to bottom, #ebab09, #ebad10);
+  border-color: #070707;
+  box-shadow: 0 0 0.75vw rgba(0, 0, 0, 1);
+}
+
+.discipline-table input:focus,
+.bonus-table input:focus,
+.penalty-table input:focus {
+  outline: none;
+  border-color: #524f4e;
+  border: 0.2vw solid black;
+  box-shadow: 0 0 0.75vw rgba(0, 0, 0, 0.2);
+  font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+/* Styly pro formuláře v modálech */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Školní rok filtr */
+.discipliny-filter {
+  display: flex;
+  align-items: center;
+  background-color: #c5baa4;
+  padding: 1.2vw;
+  border-radius: var(--border-radius);
+  border: 0.125vw solid black;
+  box-shadow: var(--button-shadow);
+  transition: var(--transition);
+  margin: 2vw auto;
+  width: fit-content;
+}
+
+.discipliny-filter label {
+  font-size: clamp(1.1rem, 1.3vw, 1.5rem);
+  font-weight: bold;
+  font-style: italic;
+  margin-right: 1vw;
+  color: black;
+  text-shadow: 0.125vw 0.125vw 0.25vw rgba(0, 0, 0, 0.4);
+}
+
+.discipliny-filter select {
+  font-size: clamp(1rem, 1.1vw, 1.3rem);
+  font-weight: bold;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  font-style: italic;
+  background: transparent;
+  border: 0.125vw solid rgb(16, 6, 102);
+  cursor: pointer;
+  color: rgb(21, 2, 71);
+  text-shadow: 0.125vw 0.125vw 0.25vw rgba(0, 0, 0, 0.4);
+  padding: 0.5vw;
+  border-radius: var(--border-radius-lg);
+  outline: none;
+}
+
+.discipliny-filter:hover,
+.discipliny-filter select:hover {
+  box-shadow: var(--hover-shadow);
+}
+
+/* Responzivita pro mobilní zařízení */
+@media (max-width: 768px) {
+  .discipliny-filter {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1vw;
+    padding: 3vw;
+    width: 90%;
+  }
+  
+  .discipliny-filter label {
+    margin-bottom: 1vw;
+  }
+  
+  .discipliny-filter select {
+    width: 100%;
+  }
+  
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 16px; /* Zabrání automatickému zoomování na iOS */
+  }
+  
+  .performance-input {
+    width: 100%;
+    padding: 1.5vw;
+  }
+}

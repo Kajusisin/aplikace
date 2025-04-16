@@ -1,0 +1,179 @@
+/* Vylepšení stylů pro modální okna */
+
+/* Základní modální okno */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+/* Obsah modálního okna */
+.modal-content {
+  position: relative;
+  background-color: #fff;
+  margin: 5% auto;
+  padding: 25px;
+  width: 90%;
+  max-width: 500px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+/* Třída pro zobrazení modálu */
+.modal.show {
+  display: flex !important;
+}
+
+/* Přidání třídy modal-open pro zabránění scrollování */
+body.modal-open {
+  overflow: hidden;
+}
+
+/* Styly pro zavírací tlačítko */
+.close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.2s;
+  line-height: 1;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+}
+
+/* Animace pro modální okno */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Formuláře v modálních oknech */
+.modal .form-group {
+  margin-bottom: 20px;
+}
+
+.modal .form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
+}
+
+.modal .form-group input,
+.modal .form-group select,
+.modal .form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 16px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.modal .form-group input:focus,
+.modal .form-group select:focus,
+.modal .form-group textarea:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(0, 116, 217, 0.2);
+  outline: none;
+}
+
+.modal .form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Tlačítka v modálních oknech */
+.modal button[type="submit"] {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.modal button[type="submit"]:hover {
+  background-color: var(--dark-color);
+}
+
+/* Styly pro modální okna specifických stránek */
+.performance-modal-content {
+  width: 80%;
+  max-width: 1000px;
+  padding: 2vw;
+  border-radius: var(--border-radius);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+}
+
+.performance-modal-content h2 {
+  color: var(--dark-color);
+  border-bottom: 0.15vw solid var(--accent-color);
+  padding-bottom: 0.8vw;
+  margin-bottom: 1.5vw;
+}
+
+.performance-table-container {
+  max-height: 60vh;
+  overflow-y: auto;
+  margin-bottom: 1.5vw;
+  border-radius: var(--border-radius-sm);
+  box-shadow: inset 0 0 0.8vw rgba(0, 0, 0, 0.1);
+  padding: 0.5vw;
+}
+
+/* Import modální okno */
+.import-modal-content {
+  width: 50%;
+  max-width: 600px;
+  position: relative;
+}
+
+/* Responzivita pro mobilní zařízení */
+@media (max-width: 768px) {
+  .modal-content {
+    width: 95%;
+    margin: 10% auto;
+    padding: 20px;
+  }
+  
+  .modal .form-group label {
+    font-size: 14px;
+  }
+  
+  .performance-modal-content {
+    width: 95%;
+    padding: 3vw;
+  }
+  
+  .import-modal-content {
+    width: 90%;
+    max-width: none;
+  }
+}

@@ -1,0 +1,193 @@
+/* Základní styly pro tabulky */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1vw;
+}
+
+/* Styly pro tabulku informací o studentovi */
+.student-info-table {
+  border-collapse: collapse;
+  width: auto;
+  min-width: 26vw;
+  margin-left: -46vw;
+  box-shadow: 0 0 1.8vw rgba(0, 0, 0, 0.2);
+  border: 0.06vw solid black;
+}
+
+.student-info-table th, .student-info-table td {
+  background-color: rgba(248, 238, 238, 0.904);
+  border: 0.06vw solid black;
+  padding: 1.1vw;
+  text-align: left;
+  white-space: nowrap;
+  margin-bottom: 0;
+}
+
+.student-info-table th {
+  position: relative;
+  background-color: #f2f2f2;
+  font-weight: bold;
+  width: 50%;
+}
+
+/* Styly pro tabulku disciplín */
+.discipline-table,
+.bonus-table,
+.penalty-table {
+  width: 100%;
+  border-collapse: collapse;
+  box-sizing: border-box;
+  table-layout: fixed;
+  box-shadow: 0 0 1.8vw rgba(0, 0, 0, 0.3);
+  border: 0.06vw solid black;
+}
+
+/* Šířky sloupců pro tabulky disciplín */
+.discipline-table th:nth-child(1),
+.bonus-table th:nth-child(1),
+.penalty-table th:nth-child(1) { width: 30%; }
+.discipline-table th:nth-child(2),
+.bonus-table th:nth-child(2),
+.penalty-table th:nth-child(2) { width: 10%; }
+.discipline-table th:nth-child(3),
+.bonus-table th:nth-child(3),
+.penalty-table th:nth-child(3) { width: 12%; }
+.discipline-table th:nth-child(4),
+.bonus-table th:nth-child(4),
+.penalty-table th:nth-child(4) { width: 42%; }
+.discipline-table th:nth-child(5),
+.bonus-table th:nth-child(5),
+.penalty-table th:nth-child(5) { width: 6%; }
+
+/* Barvy pro tabulky */
+.discipline-table.chlapec,
+.grading-table.chlapec {
+  background-color: var(--chlapec-color);
+}
+
+.discipline-table.divka,
+.grading-table.divka {
+  background-color: var(--divka-color);
+}
+
+/* Bonus a Penalizační body */
+.bonus-table {
+  background-color: #59f76e;
+}
+
+.penalty-table {
+  background-color: #f8816c;
+}
+
+/* Styly buněk */
+.discipline-table th, .discipline-table td,
+.bonus-table th, .bonus-table td,
+.penalty-table th, .penalty-table td {
+  border: 0.06vw solid black;
+  padding: 1vw;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Záhlaví tabulek */
+.discipline-table th,
+.bonus-table th,
+.penalty-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  font-size: 1.5vw;
+}
+
+/* Styl sloupce "Disciplína" */
+.discipline-table td:nth-child(1),
+.bonus-table td:nth-child(1),
+.penalty-table td:nth-child(1) {
+  font-weight: bold;
+  font-size: 1.1vw;
+}
+
+/* Styl buňky s nápovědou */
+.discipline-table td:nth-child(4),
+.bonus-table td:nth-child(4),
+.penalty-table td:nth-child(4) {
+  font-weight: normal;
+  font-size: 1.05vw;
+}
+
+/* Styl pro získané body */
+.discipline-table td:last-child,
+.bonus-table td:last-child,
+.penalty-table td:last-child {
+  color: #0ba00b;
+  font-weight: bold;
+  background-color: rgb(219, 224, 203);
+  text-align: center;
+  padding: 1vw;
+  font-size: 1.5vw;
+}
+
+/* Tabulka žebříčků */
+.zebricek-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  box-shadow: var(--table-shadow);
+}
+
+.zebricek-table th, .zebricek-table td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+.zebricek-table th {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: bold;
+}
+
+.zebricek-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.zebricek-table tr:hover {
+  background-color: #e5f0fa;
+}
+
+/* Horizontální scrollování tabulek */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 1rem;
+  border-radius: var(--border-radius-sm);
+}
+
+/* Responzivita pro mobilní zařízení */
+@media (max-width: 768px) {
+  .student-info-table {
+    margin-left: 0 !important;
+    width: 90vw;
+  }
+  
+  .discipline-table th, 
+  .discipline-table td,
+  .bonus-table th, 
+  .bonus-table td,
+  .penalty-table th, 
+  .penalty-table td {
+    padding: 2vw 1vw;
+    font-size: clamp(0.8rem, 3vw, 1rem);
+  }
+  
+  .table-container::after {
+    content: "⟺ posunout tabulku horizontálně";
+    display: block;
+    text-align: center;
+    padding: 0.5rem;
+    font-size: 0.8rem;
+    color: #666;
+  }
+}

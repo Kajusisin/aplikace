@@ -1,0 +1,57 @@
+/* 🔹 TYPOGRAFIE - základní styly písma a textů */
+
+/* 🔹 HLAVNÍ NADPIS */
+h1 {
+  font-size: 4vw;
+  font-weight: bold;
+  font-style: italic;
+  color: black;
+  text-shadow: 0.2vw 0.2vw 0.3vw rgba(0, 0, 0, 0.6);
+  text-align: left;
+  line-height: 1.2;
+  letter-spacing: 0.03vw;
+  width: 100%;
+  margin-top: 1.5vw;
+  margin-bottom: 1.2vw;
+  padding: 0;
+  margin-left: -4.5vw;
+  white-space: nowrap;
+}
+
+/* Nadpisy nižších úrovní */
+h2 {
+  font-size: 2vw;
+  margin-bottom: 0.6vw;
+  text-shadow: var(--heading-shadow);
+}
+
+h3 {
+  font-weight: bold;
+  margin-top: 0.6vw;
+  margin-bottom: 0.3vw;
+}
+
+/* Odkazy */
+a {
+  text-decoration: none;
+  color: var(--dark-color);
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: navy;
+  text-decoration: underline;
+}
+
+/* Další typografické styly */
+p, ul {
+  line-height: 1.5;
+}
+
+ul {
+  padding-left: 2.5vw;
+}
+
+li {
+  margin-bottom: 0.3vw;
+}

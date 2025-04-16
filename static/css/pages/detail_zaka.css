@@ -1,0 +1,150 @@
+/* === ZÁKLADNÍ STRUKTURA === */
+.content-zak {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 3vw;
+}
+
+.left-side {
+  flex: 1;
+  padding: 2vw;
+}
+
+.right-side.zak-points {
+  flex: 1;
+  padding: 2vw;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5vw;
+  align-items: flex-start;
+}
+
+/* === INFO BOXY === */
+.info-box {
+  width: 100%;
+  max-width: 30vw;
+  padding: 1.5vw;
+  border-radius: var(--border-radius);
+  font-size: 1.5vw;
+  font-weight: bold;
+  box-shadow: 0 0 1vw rgba(0, 0, 0, 0.2);
+  border: 0.15vw solid black;
+}
+
+.points-box {
+  background-color: var(--primary-color);
+  color: #1a3e8b;
+}
+
+.average-box {
+  background-color: var(--secondary-color);
+  color: #229957;
+}
+
+.grade-box {
+  background: linear-gradient(to right, var(--accent-color), #ff4500);
+  color: white;
+}
+
+.discipline-count-box {
+  background: linear-gradient(to right, #222, #999);
+  color: white;
+  font-size: 1.4vw;
+  padding: 1vw;
+  margin-top: 0.5vw;
+}
+
+/* === STUDENT INFO === */
+.student-info-wrapper {
+  display: flex;
+  gap: 2vw;
+  align-items: flex-start;
+}
+
+.student-info-table {
+  border-collapse: collapse;
+  font-size: 1.1vw;
+  width: auto;
+}
+
+.student-info-table th {
+  text-align: left;
+  padding-right: 1vw;
+  vertical-align: top;
+  font-weight: bold;
+}
+
+.logo-wrapper {
+  flex-shrink: 0;
+}
+
+.logo-wrapper img {
+  width: 14vw;
+  height: auto;
+  border-radius: var(--border-radius);
+  box-shadow: 0 0 0.6vw rgba(0, 0, 0, 0.2);
+}
+
+/* === VÝKONOVÁ TABULKA === */
+.performance-section {
+  margin-top: 2vw;
+}
+
+.discipline-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1.1vw;
+  box-shadow: 0 0 0.6vw rgba(0, 0, 0, 0.2);
+  border: 0.1vw solid #aaa;
+}
+
+.discipline-table th,
+.discipline-table td {
+  padding: 1vw;
+  text-align: center;
+  border: 0.1vw solid #ccc;
+}
+
+.discipline-table.chlapec {
+  background-color: var(--chlapec-color);
+}
+
+.discipline-table.divka {
+  background-color: var(--divka-color);
+}
+
+.vykon-input {
+  width: 8vw;
+  padding: 0.5vw;
+  font-size: 1vw;
+}
+
+/* === BONUS A PENALIZACE === */
+.bonus-section,
+.penalty-section {
+  margin-top: 2vw;
+  padding-left: 2vw;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+.bonus-input,
+.penalty-input {
+  font-size: 1.2vw;
+  padding: 0.6vw;
+  width: 12vw;
+}
+
+/* === RESPONSIVITA (VOLITELNÉ) === */
+@media screen and (max-width: 768px) {
+  .content-zak {
+    flex-direction: column;
+  }
+
+  .right-side.zak-points {
+    align-items: center;
+  }
+
+  .discipline-table {
+    font-size: 1.5vw;
+  }
+}

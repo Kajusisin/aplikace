@@ -1,0 +1,27 @@
+/* Hlavní CSS soubor - importuje všechny ostatní */
+
+/* Importy z base/ */
+@import 'base/variables.css';
+@import 'base/reset.css';
+@import 'base/typography.css';
+@import 'base/layout.css';
+
+/* Importy komponent */
+@import 'components/buttons.css';
+@import 'components/forms.css';
+@import 'components/tables.css';
+@import 'components/modals.css';
+@import 'components/flash.css';
+
+/* Importy stránek */
+@import 'pages/home.css';
+@import 'pages/tridy.css';
+@import 'pages/zaci.css';
+@import 'pages/detail_zaka.css';
+@import 'pages/discipliny.css';
+@import 'pages/zebricky.css';
+@import 'pages/odkazy.css';
+
+/* Importy utilit */
+@import 'utils/responsive.css';
+@import 'utils/print.css';

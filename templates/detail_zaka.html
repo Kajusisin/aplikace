@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% block body_id %}detail-zaka-page{% endblock %}
+{% block title %}Detail žáka{% endblock %}
+
+{% block content %}
+<h1>Detail žáka</h1>
+
+<div class="student-detail-container">
+    <!-- SLoupec 1: Info o žákovi -->
+    <div class="student-info">
+        <h2>{{ zak.jmeno }} {{ zak.prijmeni }}</h2>
+        <p><strong>Třída:</strong> <span id="trida-text">{{ zak.get_trida(vybrany_rok) or "Neznámá" }}</span></p>
+        <p><strong>Pohlaví:</strong> {{ zak.pohlavi }}</p>
+        <p><strong>Ročník:</strong> {{ zak.rocnik or "Neuveden" }}</p>
+
+        <!-- Logo podle pohlaví -->
+        <div class="gender-logo">
+            {% if zak.pohlavi.lower() == 'chlapec' %}
+            <img src="{{ url_for('static', filename='logo_chlapec.jpg') }}" alt="Chlapec">
+            {% elif zak.pohlavi.lower() == 'divka' %}
+            <img src="{{ url_for('static', filename='logo_divka.jpg') }}" alt="Dívka">
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Sloupec 2: Tabulka hodnocení -->
+    <div class="grading-scale">
+        <h3>Známkovací tabulka</h3>
+        <table class="grading-table">
+            <thead>
+                <tr>
+                    <th>Body</th>
+                    <th>Známka</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for scale in znamkovaci_tabulka %}
+                <tr>
+                    <td>{{ scale.min }} - {{ scale.max }}</td>
+                    <td>{{ scale.znamka }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Sloupec 3: Výkony -->
+    <div class="student-results">
+        <h3>Výkony žáka</h3>
+
+        <!-- Disciplíny -->
+        <h4>Disciplíny</h4>
+        <table class="discipline-table">
+            <thead>
+                <tr>
+                    <th>Disciplína</th>
+                    <th>Výkon</th>
+                    <th>Body</th>
+                    <th>Ročník</th>
+                    <th>Školní rok</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for vykon in vykony.discipliny %}
+                <tr>
+                    <td>{{ vykon.nazev }}</td>
+                    <td>{{ vykon.vykon }} {{ vykon.jednotka }}</td>
+                    <td>{{ vykon.body }}</td>
+                    <td>{{ vykon.rocnik }}.</td>
+                    <td>{{ vykon.skolni_rok }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5">Žádné disciplíny</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Bonusy -->
+        <h4>Bonusy</h4>
+        <table class="bonus-table">
+            <thead>
+                <tr>
+                    <th>Bonus</th>
+                    <th>Body</th>
+                    <th>Školní rok</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for bonus in vykony.bonusy %}
+                <tr>
+                    <td>{{ bonus.popis }}</td>
+                    <td>{{ bonus.body }}</td>
+                    <td>{{ bonus.skolni_rok }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="3">Žádné bonusy</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Penalizace -->
+        <h4>Penalizace</h4>
+        <table class="penalty-table">
+            <thead>
+                <tr>
+                    <th>Penalizace</th>
+                    <th>Body</th>
+                    <th>Školní rok</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for penal in vykony.penalizace %}
+                <tr>
+                    <td>{{ penal.popis }}</td>
+                    <td>{{ penal.body }}</td>
+                    <td>{{ penal.skolni_rok }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="3">Žádné penalizace</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Součet bodů -->
+        <div class="student-summary">
+            <p><strong>Celkem bodů:</strong> {{ vykony.total_body or 0 }}</p>
+            <p><strong>Výsledná známka:</strong> {{ vykony.vysledna_znamka or "?" }}</p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

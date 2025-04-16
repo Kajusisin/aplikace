@@ -1,0 +1,292 @@
+/* Hlavní kontejner pro disciplíny */
+.content-discipliny {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Logo disciplín */
+.logo-discipliny-container {
+  text-align: center;
+  margin: 2vw auto;
+}
+
+.logo-discipliny {
+  max-width: 30vw;
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 0.5vw 1vw rgba(0, 0, 0, 0.2);
+  transition: all 0.5s ease;
+}
+
+.logo-discipliny:hover {
+  transform: scale(1.02);
+  box-shadow: 0 1vw 2vw rgba(0, 0, 0, 0.25);
+}
+
+/* Seznam disciplín */
+.discipliny-seznam {
+  width: 100%;
+  margin-top: 2vw;
+}
+
+/* Accordion styly */
+.accordion-container {
+  width: 100%;
+}
+
+.accordion-item {
+  margin-bottom: 1.2vw;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: 0 0 1vw rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.accordion-item:hover {
+  box-shadow: 0 0 1.5vw rgba(0, 0, 0, 0.2);
+}
+
+.accordion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5vw;
+  background: linear-gradient(to right, var(--primary-color), #4ba3ff);
+  color: white;
+  font-size: clamp(1.2rem, 1.5vw, 1.7rem);
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  text-shadow: 0.125vw 0.125vw 0.3vw rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.accordion-header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent);
+  transition: all 0.6s ease;
+}
+
+.accordion-header:hover::before {
+  left: 100%;
+}
+
+.accordion-header:hover {
+  background: linear-gradient(to right, #1058b0, var(--primary-color));
+}
+
+.accordion-header.active {
+  background: linear-gradient(to right, #0a3874, #074fb3);
+}
+
+.accordion-title {
+  flex-grow: 1;
+}
+
+.accordion-icon {
+  transition: transform 0.3s ease;
+  margin-left: 1vw;
+}
+
+.accordion-header.active .accordion-icon {
+  transform: rotate(180deg);
+}
+
+.accordion-content {
+  padding: 0;
+  background-color: white;
+}
+
+/* Kontejner pro třídy */
+.classes-list {
+  padding: 1vw;
+}
+
+.rocnik-group {
+  margin-bottom: 1.5vw;
+  background-color: #f8f8f8;
+  padding: 1vw;
+  border-radius: var(--border-radius-sm);
+  box-shadow: inset 0 0 0.5vw rgba(0, 0, 0, 0.05);
+}
+
+.rocnik-group h3 {
+  margin-top: 0;
+  margin-bottom: 1vw;
+  color: var(--dark-color);
+  border-bottom: 0.15vw solid var(--accent-color);
+  padding-bottom: 0.5vw;
+  font-size: clamp(1.1rem, 1.3vw, 1.5rem);
+}
+
+.class-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1vw;
+  margin-bottom: 0.8vw;
+  background: linear-gradient(to bottom, #ffffff, #f0f0f0);
+  border-radius: var(--border-radius-sm);
+  transition: all 0.2s ease;
+  border: 0.125vw solid #e0e0e0;
+}
+
+.class-item:hover {
+  transform: translateY(-0.3vw);
+  box-shadow: 0 0.5vw 1vw rgba(0, 0, 0, 0.1);
+  border-color: #bbb;
+}
+
+.class-name {
+  font-size: clamp(1rem, 1.2vw, 1.4rem);
+  font-weight: bold;
+}
+
+.gender-options {
+  display: flex;
+  gap: 0.8vw;
+}
+
+/* Modální okno výkonů */
+.performance-modal-content {
+  width: 80%;
+  max-width: 1000px;
+  padding: 2vw;
+  border-radius: var(--border-radius);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+}
+
+.performance-modal-content h2 {
+  color: var(--dark-color, #333);
+  border-bottom: 0.15vw solid var(--accent-color, #ff9800);
+  padding-bottom: 0.8vw;
+  margin-bottom: 1.5vw;
+}
+
+.performance-table-container {
+  max-height: 60vh;
+  overflow-y: auto;
+  margin-bottom: 1.5vw;
+  border-radius: var(--border-radius-sm);
+  box-shadow: inset 0 0 0.8vw rgba(0, 0, 0, 0.1);
+  padding: 0.5vw;
+}
+
+.performance-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 0.06vw solid #ddd;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+.performance-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  padding: 1vw;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 0.2vw 0.3vw rgba(0, 0, 0, 0.1);
+}
+
+.performance-table td {
+  padding: 0.8vw;
+  text-align: center;
+  border-bottom: 0.06vw solid #eee;
+}
+
+.performance-table tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* Vstupní pole */
+.performance-input {
+  width: 95%;
+  padding: 0.5vw;
+  text-align: center;
+  font-size: clamp(0.9rem, 1vw, 1.1rem);
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  font-weight: bold;
+  color: #032241;
+  border: 0.03vw solid black;
+  border-radius: 0.6vw;
+  background: linear-gradient(to bottom, #f0c653, #f0d769);
+  box-shadow: inset 0.12vw 0.12vw 0.3vw rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.performance-input:hover {
+  background: linear-gradient(to bottom, #ebab09, #ebad10);
+  border-color: #070707;
+}
+
+.performance-input:focus {
+  outline: none;
+  border: 0.2vw solid black;
+  box-shadow: 0 0 0.75vw rgba(0, 0, 0, 0.2);
+}
+
+/* Tlačítka v modálu */
+.modal-buttons {
+  display: flex;
+  align-items: center;
+  margin-top: 1.5vw;
+}
+
+.save-status {
+  margin-left: 1.5vw;
+  padding: 0.8vw;
+  border-radius: var(--border-radius-sm);
+  font-weight: bold;
+}
+
+.save-status.pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.save-status.success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.save-status.error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Loading indikátor */
+.loading-indicator {
+  text-align: center;
+  padding: 2vw;
+  color: #666;
+  font-style: italic;
+  position: relative;
+}
+
+/* Chybové stavy */
+.no-data, .error {
+  padding: 2vw;
+  text-align: center;
+  color: #721c24;
+  background-color: #f8d7da;
+  border-radius: var(--border-radius-sm);
+  margin: 1vw 0;
+}
+
+.no-data {
+  color: #0c5460;
+  background-color: #d1ecf1;
+}

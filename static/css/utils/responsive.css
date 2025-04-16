@@ -1,0 +1,263 @@
+/* 📱 RESPONSIVITA - úpravy pro různé velikosti obrazovek */
+
+/* Základní responzivní úpravy velikosti fontu */
+@media (max-width: 768px) {
+  :root {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    font-size: 12px;
+  }
+}
+
+/* 📱 RESPONSIVITA pro mobilní zařízení */
+@media (max-width: 768px) {
+  body {
+    padding: 0 3vw;
+  }
+
+  .container {
+    width: 100%;
+    padding: 0 1vw;
+  }
+
+  h1 {
+    font-size: 2.2rem !important;
+    text-align: center !important;
+    white-space: normal !important;
+    margin-left: 0;
+    margin-top: 3rem;
+  }
+
+  .content-container, 
+  .trida-content-container, 
+  .seznam-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 4vw;
+    width: 95% !important;
+    margin: 0 auto;
+  }
+
+  .logo-trida-container, 
+  .logo-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 2vw;
+  }
+
+  .logo-trida, 
+  .logo-vyhledavani, 
+  .logo-chlapec, 
+  .logo-divka {
+    max-width: 60vw;
+    height: auto;
+  }
+
+  .sloupec, 
+  .seznam-trid-container {
+    width: 90%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .oddeleni {
+    display: none;
+  }
+
+  .skolni-rok {
+    top: 0.5rem;
+    right: 1rem;
+    font-size: 0.8rem;
+  }
+
+  .logo-home {
+    top: 1.8rem;
+    right: 1rem;
+  }
+
+  .student-info-table {
+    margin-left: 0 !important;
+    width: 90vw;
+  }
+
+  .info-box {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .left-side, .right-side {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  .discipline-table th,
+  .bonus-table th,
+  .penalty-table th,
+  .grading-table th {
+    font-size: 0.9rem;
+  }
+
+  .discipline-table td,
+  .bonus-table td,
+  .penalty-table td,
+  .grading-table td {
+    font-size: 0.85rem;
+    padding: 0.5rem;
+  }
+  
+  /* Responzivní úpravy pro formuláře */
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 16px; /* Zabrání automatickému zoomování na iOS */
+  }
+  
+  /* Přizpůsobení modálních oken */
+  .modal-content {
+    width: 95%;
+    padding: 15px;
+  }
+}
+
+/* Pro menší mobilní zařízení */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.8rem !important;
+    margin-top: 4rem;
+  }
+
+  .button, 
+  .search-container, 
+  .skolni-rok-container {
+    width: 90vw !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .headline-container {
+    position: static !important;
+    width: 90% !important;
+    margin: 1rem auto !important;
+    top: 0 !important;
+    left: 0 !important;
+  }
+
+  .headline-container h2 {
+    font-size: 1rem !important;
+  }
+
+  .menu-container {
+    position: static !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    right: 0 !important;
+  }
+  
+  /* Přizpůsobení pro odkazy a informace */
+  .odkazy-container {
+    flex-direction: column;
+  }
+  
+  .odkazy-sloupec {
+    margin: 15px 0;
+  }
+  
+  .oddeleni-cary {
+    display: none;
+  }
+}
+
+/* Responzivní úpravy pro odkazy a informace */
+@media (max-width: 768px) {
+  .odkazy-container {
+    flex-direction: column;
+  }
+  
+  .odkazy-sloupec {
+    margin: 10px 0;
+  }
+  
+  .oddeleni-cary {
+    display: none;
+  }
+}
+
+/* Přizpůsobení pro detail žáka na velmi malých displejích */
+@media (max-width: 480px) {
+  .zak-points,
+  .points-box,
+  .average-box,
+  .grade-box,
+  .discipline-count-box {
+    position: static !important;
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: 90% !important;
+    top: 0 !important;
+  }
+  
+  .grading-table,
+  .discipline-table,
+  .bonus-table,
+  .penalty-table {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: 100% !important;
+    position: static !important;
+  }
+  
+  .performance-section {
+    margin-top: 1rem !important;
+  }
+  
+  .grading-table-h2,
+  .discipline-table-h2,
+  .bonus-table-h2,
+  .penalty-table-h2 {
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-top: 2rem !important;
+    margin-bottom: 1rem !important;
+    position: static !important;
+  }
+}
+
+/* Zvětšení dotykových ploch pro mobilní zařízení */
+@media (max-width: 768px) {
+  .button, 
+  .search-container,
+  .skolni-rok-container,
+  select,
+  input[type="submit"],
+  input[type="button"],
+  .tridy-sloupec a {
+    min-height: 2.8rem;
+    padding: 0.8rem;
+    touch-action: manipulation;
+  }
+  
+  /* Větší mezery mezi položkami v seznamech pro snazší kliknutí */
+  .sloupec li,
+  .tridy-sloupec li {
+    margin: 0.8rem 0;
+    padding: 0.5rem 0;
+  }
+  
+  /* Optimalizace vstupů pro mobilní klávesnice */
+  .discipline-table input,
+  .bonus-table input,
+  .penalty-table input {
+    min-height: 2.5rem;
+  }
+}

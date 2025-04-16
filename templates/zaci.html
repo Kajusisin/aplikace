@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}Seznam žáků{% endblock %}
+{% block body_id %}zaci-page{% endblock %}
+
+{% block content %}
+<h1>Seznam žáků</h1>
+
+<div class="filter-section">
+    <label for="skolniRok">Školní rok:</label>
+    <select id="skolniRok" name="skolniRok" class="form-control">
+        {% for rok in skolni_roky %}
+        <option value="{{ rok.id }}" {% if rok.rok_od==vybrany_skolni_rok.rok_od %}selected{% endif %}
+            data-rok-id="{{ rok.id }}" data-rok-od="{{ rok.rok_od }}" data-rok-do="{{ rok.rok_do }}">
+            {{ rok.rok_od }}/{{ rok.rok_do }}
+        </option>
+        {% endfor %}
+    </select>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Jméno</th>
+            <th>Příjmení</th>
+            <th>Třída</th>
+            <th>Detail</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for zak in zaci %}
+        <tr>
+            <td>{{ zak.jmeno }}</td>
+            <td>{{ zak.prijmeni }}</td>
+            <td>{{ zak.trida }}</td>
+            <td><a href="{{ url_for('detail_zaka', zak_id=zak.id) }}">Detail</a></td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="4">Žádní žáci nejsou k dispozici.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const skolniRokSelect = document.getElementById("skolniRok");
+
+        skolniRokSelect.addEventListener("change", function () {
+            const selectedOption = this.options[this.selectedIndex];
+            const rokId = selectedOption.getAttribute("data-rok-id");
+            const rokOd = selectedOption.getAttribute("data-rok-od");
+            const rokDo = selectedOption.getAttribute("data-rok-do");
+
+            if (!confirm(`Změnit školní rok na ${rokOd}/${rokDo}?`)) return;
+
+            fetch("/nastav_aktivni_rok", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ rok_id: rokId })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("✅ " + data.message);
+                        location.reload();
+                    } else {
+                        alert("❌ Chyba: " + (data.error || "Neznámá chyba"));
+                    }
+                })
+                .catch(err => {
+                    console.error("❌ Chyba:", err);
+                    alert("❌ Technická chyba při změně roku.");
+                });
+        });
+    });
+</script>
+{% endblock %}

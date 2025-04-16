@@ -1,0 +1,105 @@
+/* 🔹 STYL TLAČÍTEK */
+.button, .search-container {
+  font-size: clamp(1.2rem, 1.4vw, 1.6rem);
+  font-weight: bold;
+  font-style: italic;
+  text-decoration: none;
+  background-color: var(--accent-color);
+  color: black;
+  width: 17.5vw;
+  height: 3.7vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--border-radius);
+  border: 0.125vw solid black;
+  box-shadow: var(--button-shadow);
+  transition: var(--transition);
+  cursor: pointer;
+  text-shadow: 0.125vw 0.125vw 0.25vw rgba(0, 0, 0, 0.4);
+  text-align: center;
+  margin-left: -45vw;
+  margin-bottom: 1vw;
+  margin-top: 1vw;
+}
+
+.button:hover, .search-container:hover {
+  background-color: #e28409;
+  transform: translateY(-0.2vw);
+  box-shadow: var(--hover-shadow);
+  color: rgb(21, 2, 71);
+}
+
+/* 🟢 Tlačítka v modálu */
+.submit-btn {
+  font-size: clamp(1rem, 1.2vw, 1.4rem);
+  font-weight: bold;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  background-color: var(--accent-color);
+  color: black;
+  border: 0.125vw solid black;
+  border-radius: var(--border-radius-sm);
+  padding: 0.8vw 1.5vw;
+  cursor: pointer;
+  box-shadow: var(--button-shadow);
+  transition: all 0.3s ease;
+  text-shadow: 0.125vw 0.125vw 0.25vw rgba(0, 0, 0, 0.4);
+}
+
+.submit-btn:hover {
+  background-color: #e28409;
+  transform: translateY(-0.2vw);
+  box-shadow: var(--hover-shadow);
+}
+
+/* Tlačítka pro přidání */
+.pridat-btn {
+  display: inline-block;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.pridat-btn:hover {
+  background-color: var(--dark-color);
+}
+
+/* Tlačítka pro pohlaví */
+.gender-btn {
+  padding: 0.6vw 1.2vw;
+  border: none;
+  border-radius: var(--border-radius-sm);
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  font-weight: bold;
+  font-size: clamp(0.9rem, 1vw, 1.1rem);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.gender-btn[data-gender="chlapec"] {
+  background-color: var(--chlapec-color);
+  color: #003366;
+}
+
+.gender-btn[data-gender="divka"] {
+  background-color: var(--divka-color);
+  color: #993300;
+}
+
+.gender-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0.3vw 0.6vw rgba(0, 0, 0, 0.2);
+}
+
+.gender-btn[data-gender="chlapec"]:hover {
+  background-color: #a5ccff;
+}
+
+.gender-btn[data-gender="divka"]:hover {
+  background-color: #ffc8a5;
+}

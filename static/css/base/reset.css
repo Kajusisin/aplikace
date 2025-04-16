@@ -1,0 +1,32 @@
+/* 🔹 ZÁKLADNÍ NASTAVENÍ STRÁNKY */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 🔹 BODY - základní nastavení */
+body {
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  background-color: transparent !important;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 4vw; /* Převedeno z cm na vw */
+  width: 100%;
+}
+
+/* 🔹 POZADÍ STRÁNKY */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("../../pozadi.jpg") center / 110% no-repeat fixed;
+  opacity: 0.2;
+  z-index: -100;
+}

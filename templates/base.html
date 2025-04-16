@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f5f5f5"> <!-- Barva záhlaví prohlížeče v mobilních zařízeních -->
+    <meta name="format-detection" content="telephone=no"> <!-- Zabrání automatickému formátování telefonních čísel -->
+    <meta name="mobile-web-app-capable" content="yes"> <!-- Pro možnost přidání na plochu jako aplikace -->
+    <meta name="apple-mobile-web-app-capable" content="yes"> <!-- Pro iOS zařízení -->
+    <title>{% block title %}Hejbni kostrou!{% endblock %}</title>
+
+    <!-- Změněný odkaz na CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
+    <!-- Přidání odkazu na favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+
+    <!-- JavaScript soubory - důležité pořadí -->
+    <script src="{{ url_for('static', filename='js/student_performance.js') }}"></script>
+</head>
+
+<body id="{% block body_id %}{% endblock %}" data-skolni-rok="{{ session.get('vybrany_skolni_rok_od') }}"
+    data-skolni-rok-do="{{ session.get('vybrany_skolni_rok_do') }}">
+
+    <!-- 🔹 Školní rok v pravém horním rohu -->
+    <div class="skolni-rok">
+        Aktuální školní rok: <strong>{{ session.get('vybrany_skolni_rok_od') }}/{{ session.get('vybrany_skolni_rok_do')
+            }}</strong>
+    </div>
+
+    <!-- 🔹 Logo „Domů" -->
+    <div class="logo-home">
+        <a href="{{ url_for('home') }}">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Domů">
+        </a>
+    </div>
+
+    <!-- Přidejte toto do <body> hned za hlavičku -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flash-messages">
+        {% for category, message in messages %}
+        <div class="flash-message {{ category }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <!-- 🔹 Hlavní obsah stránky -->
+    <div class="page-wrapper">
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+
+    <!-- ✅ Společné funkce -->
+    <script>
+        /**
+         * Funkce pro změnu školního roku na serveru
+         * @param {string} rokId - ID školního roku 
+         * @param {string} rokOd - První rok školního roku (YYYY)
+         * @param {string} rokDo - Druhý rok školního roku (YYYY)
+         * @returns {Promise} - Promise pro zpracování odpovědi
+         */
+        function zmenitSkolniRok(rokId, rokOd, rokDo) {
+            const vybranyRokString = `${rokOd}/${rokDo}`;
+
+            if (!confirm(`Opravdu chcete změnit školní rok na ${vybranyRokString}?`)) {
+                return Promise.reject(new Error('Uživatel zrušil změnu roku'));
+            }
+
+            return fetch('/nastav_aktivni_rok', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ rok_id: rokId })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Úspěšně změněno - vynutíme reload stránky
+                        window.location.reload();
+                        return data;
+                    } else {
+                        // Chybové hlášení
+                        const errorMsg = data.error || "Neznámá chyba při změně školního roku";
+                        alert("❌ " + errorMsg);
+                        throw new Error(errorMsg);
+                    }
+                })
+                .catch(err => {
+                    console.error("❌ Chyba při změně školního roku:", err);
+                    alert("❌ Technická chyba při změně školního roku.");
+                    throw err;
+                });
+        }
+
+        // Inicializace při načtení stránky
+        document.addEventListener("DOMContentLoaded", function () {
+            // Event listener pro dropdown školního roku
+            const skolniRokSelect = document.getElementById("skolniRok");
+            if (skolniRokSelect) {
+                skolniRokSelect.addEventListener("change", function () {
+                    const selectedOption = this.options[this.selectedIndex];
+                    const rokId = selectedOption.value;
+                    const rokOd = selectedOption.getAttribute('data-rok-od');
+                    const rokDo = selectedOption.getAttribute('data-rok-do');
+
+                    zmenitSkolniRok(rokId, rokOd, rokDo)
+                        .catch(error => {
+                            console.error("Změna roku byla zrušena nebo selhala:", error);
+                        });
+                });
+            }
+
+            // Optimalizace pro dotykové zařízení
+            const today = new Date();
+            document.body.setAttribute('data-datum', today.toLocaleDateString('cs-CZ'));
+
+            // Zjištění, zda jde o dotykové zařízení
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+            if (isTouchDevice) {
+                // Přidání třídy k tělu dokumentu pro CSS úpravy
+                document.body.classList.add('touch-device');
+
+                // Přizpůsobení inputů pro numerické hodnoty
+                const numericInputs = document.querySelectorAll('.discipline-table input, .bonus-table input, .penalty-table input');
+                numericInputs.forEach(input => {
+                    // Pro numerické inputy nastavíme numerickou klávesnici
+                    if (input.type === 'text' && !input.hasAttribute('pattern')) {
+                        input.setAttribute('inputmode', 'decimal');
+                    }
+                });
+
+                // Obalení tabulek pro horizontální scrollování
+                const tables = document.querySelectorAll('.discipline-table, .bonus-table, .penalty-table, .grading-table, .student-info-table');
+                tables.forEach(table => {
+                    // Pokud tabulka ještě není v kontejneru pro scrollování
+                    if (!table.parentElement.classList.contains('table-container')) {
+                        const wrapper = document.createElement('div');
+                        wrapper.className = 'table-container';
+                        table.parentNode.insertBefore(wrapper, table);
+                        wrapper.appendChild(table);
+                    }
+                });
+            }
+        });
+    </script>
+
+    <!-- Přidán JavaScript pro modální okna -->
+    <script src="{{ url_for('static', filename='js/components/modals.js') }}"></script>
+</body>
+
+</html>

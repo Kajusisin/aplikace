@@ -1,0 +1,207 @@
+/* ✅ODKAZY_A_INFORMACE.HTML */
+/* ✅ Kontejner pro stránku s odkazy a informacemi */
+/* ✅ Celkový kontejner */
+.content-odkazy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  max-width: 85vw;
+  margin: 0 auto;
+  margin-top: 5vw;
+}
+
+/* ✅ Logo */
+.logo-odkazy-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3vw;
+}
+
+.logo-odkazy {
+  max-width: 40vw;
+  height: auto;
+  border-radius: var(--border-radius);
+}
+
+/* ✅ Sekce s důležitými informacemi */
+.important-info {
+  width: 100%;
+  max-width: 60vw;
+  padding: 1vw;
+  background-color: var(--light-color);
+  border-radius: var(--border-radius-sm);
+  box-shadow: var(--box-shadow);
+  margin-bottom: 3vw;
+}
+
+.info-box {
+  background-color: white;
+  padding: 1vw;
+  border-left: 0.3vw solid var(--primary-color); /* 5px převedené na vw */
+  margin-bottom: 0.6vw; /* 10px převedené na vw */
+  font-size: 1.2vw;
+}
+
+.info-date {
+  font-size: 0.9vw;
+  color: #666;
+}
+
+/* ✅ Odkazy */
+.link-section {
+  width: 100%;
+  max-width: 60vw;
+  padding: 1vw;
+  background-color: #eef8ff;
+  border-radius: var(--border-radius-sm);
+  box-shadow: var(--box-shadow);
+  margin-bottom: 3vw;
+}
+
+.link-category h3 {
+  margin-bottom: 0.5vw;
+  font-size: 1.4vw;
+}
+
+.link-category ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.link-category ul li {
+  margin-bottom: 0.5vw;
+}
+
+.link-category a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-size: 1.2vw;
+}
+
+.link-category a:hover {
+  text-decoration: underline;
+}
+
+/* Styly pro stránku odkazy a informace s třemi sloupci */
+.odkazy-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 20px 0;
+}
+
+.odkazy-sloupec {
+  flex: 1;
+  padding: 20px;
+  background-color: transparent; /* Změněno na transparentní */
+  border-radius: 8px;
+  margin: 0 10px;
+  box-shadow: none; /* Odstraněn stín */
+}
+
+.odkaz-kategorie, .info-item, .soubory-seznam {
+  background-color: transparent;
+}
+
+.info-item {
+  border-left: 4px solid var(--primary-color);
+  padding: 10px 15px 10px 15px;
+  margin-bottom: 15px;
+  background-color: transparent;
+  position: relative;
+}
+
+.info-text {
+  margin: 0 0 20px 0;
+}
+
+.info-date {
+  position: absolute;
+  bottom: 5px;
+  right: 10px;
+  margin: 0;
+  font-size: 0.8em;
+  color: #777;
+  font-style: italic;
+}
+
+.soubory-seznam ul li {
+  margin-bottom: 8px;
+  position: relative;
+  padding-left: 22px;
+}
+
+.soubory-seznam ul li:before {
+  content: "📄";
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.oddeleni-cary {
+  width: 2px;
+  background-color: #ddd;
+  margin: 0 10px;
+}
+
+.odkazy-obsah {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.odkaz-kategorie h3 {
+  color: var(--primary-color);
+  border-bottom: 1px solid var(--primary-color);
+  padding-bottom: 5px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.odkaz-kategorie ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.odkaz-kategorie li {
+  margin-bottom: 5px;
+  position: relative;
+  padding-right: 25px;
+}
+
+.odkaz-kategorie a {
+  color: var(--dark-color);
+  text-decoration: none;
+}
+
+.odkaz-kategorie a:hover {
+  text-decoration: underline;
+}
+
+.delete-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: #ff3333;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.delete-btn:hover {
+  color: #cc0000;
+}
+
+.prazdny-text {
+  font-style: italic;
+  color: #777;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.image-container {
+  text-align: center;
+  margin-bottom: 20px;
+}

@@ -1,0 +1,79 @@
+/* Styly pro tisk */
+@media print {
+  body, body::before {
+    background: none !important;
+  }
+  
+  .logo-home, .skolni-rok, .menu-container, .search-container {
+    display: none !important;
+  }
+  
+  h1 {
+    font-size: 18pt !important;
+    margin: 10pt 0 !important;
+    text-align: center !important;
+  }
+  
+  .content-container,
+  .content-zak,
+  .student-info-wrapper {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;
+  }
+  
+  .student-info-table,
+  .grading-table,
+  .discipline-table,
+  .bonus-table,
+  .penalty-table {
+    width: 100% !important;
+    margin: 10pt 0 !important;
+    page-break-inside: avoid;
+  }
+  
+  /* Nastavení barvy pozadí pro tabulky při tisku */
+  .discipline-table.chlapec, .grading-table.chlapec {
+    background-color: #eaf2ff !important;
+  }
+  
+  .discipline-table.divka, .grading-table.divka {
+    background-color: #fff5ea !important;
+  }
+  
+  /* Zápatí s informací o tisku */
+  body::after {
+    content: "Vytištěno z aplikace Hejbni kostrou! - " attr(data-datum);
+    display: block;
+    text-align: center;
+    margin-top: 20pt;
+    font-size: 8pt;
+    font-style: italic;
+  }
+  
+  /* Skrytí tlačítek pro tisk */
+  .pridat-btn, .gender-btn, button, 
+  .delete-btn, .close, .menu-container {
+    display: none !important;
+  }
+  
+  /* Optimalizace tabulek pro tisk */
+  table {
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    border: 1pt solid #000 !important;
+  }
+  
+  /* Zajištění správné barvy textu */
+  * {
+    color: #000 !important;
+    text-shadow: none !important;
+  }
+  
+  /* Skrytí některých sekcí při tisku */
+  .flash-messages, .modal {
+    display: none !important;
+  }
+}
